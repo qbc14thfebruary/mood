@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nhật ký cảm xúc theo lịch</title>
     <link rel="stylesheet" href="mood.css">
+    <style>
+        /* Ẩn phần tử có id="hideOrDisplayLocalStorage" trên màn hình nhỏ */
+        @media (max-width: 768px) {
+            #hideOrDisplayLocalStorage {
+                display: none !important;
+            }
+        }
+
+        /* Nếu muốn ẩn sớm hơn (ví dụ từ màn hình điện thoại nhỏ) */
+        @media (max-width: 480px) {
+            #hideOrDisplayLocalStorage {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -16,10 +31,13 @@
             <label>Năm: <select id="yearSelect"></select></label>
             <button id="prevMonth">◀ Tháng trước</button>
             <button id="nextMonth">Tháng sau ▶</button>
-            <button id="pickFile" class="accent">📁 Kết nối/Chọn file dữ liệu (.json)</button>
-            <span class="notice" id="fileStatus">Chưa kết nối file dữ liệu - sẽ lưu vào LocalStorage</span>
-            <!-- <span class="notice" id="fileStatus">...</span> -->
-            <br><small style="color:#666;">Lưu ý: Nếu đổi máy hoặc xóa file, dữ liệu sẽ mất. Nên backup định kỳ.</small>
+            <div id="hideOrDisplayLocalStorage">
+                <button id="pickFile" class="accent">📁 Kết nối/Chọn file dữ liệu (.json)</button>
+                <span class="notice" id="fileStatus">Chưa kết nối file dữ liệu - sẽ lưu vào LocalStorage</span>
+                <!-- <span class="notice" id="fileStatus">...</span> -->
+                <br><small style="color:#666;">Lưu ý: Nếu đổi máy hoặc xóa file, dữ liệu sẽ mất. Nên backup định
+                    kỳ.</small>
+            </div>
         </div>
     </header>
 
