@@ -117,6 +117,24 @@ main {
     place-items: center;
     font-size: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background: var(--accent-color, #d0a6ff); /* giữ màu nền nếu có */
+    
+    /* Quan trọng: Thu nhỏ emoji trên màn hình nhỏ */
+    @media (max-width: 480px) {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+        bottom: 4px;
+        right: 4px;
+    }
+
+    @media (max-width: 360px) {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+        bottom: 4px;
+        right: 4px;
+    }
 }
 
 .legend {
