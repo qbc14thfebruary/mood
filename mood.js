@@ -330,7 +330,7 @@ function drawStats() {
     }
 
     // Vẽ biểu đồ cột
-    const keys = EMOTIONS.map(e => e.id);
+    const keys = EMOTIONS.filter(e => e.id != "zzz").map(e => e.id); // Loại bỏ trạng thái none ra khỏi biểu đồ
     const maxVal = Math.max(1, ...Object.values(counts));
     const margin = 60; const gap = 10;
     const barW = Math.floor((canvas.width - margin * 2) / keys.length) - gap;
