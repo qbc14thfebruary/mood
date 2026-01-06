@@ -1,0 +1,389 @@
+:root {
+    --bg: #f6f7fb;
+    --card: #ffffff;
+    --text: #222;
+    --muted: #666;
+    --primary: #5c6ac4;
+    --accent: #7c3aed;
+    --border: #e5e7eb;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+header {
+    padding: 16px 24px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0 0 8px;
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+select,
+button {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text);
+}
+
+button.primary {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+button.accent {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+main {
+    max-width: 1100px;
+    margin: 16px auto;
+    padding: 0 16px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    background: var(--card);
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 6px 0;
+}
+
+.day {
+    min-height: 92px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: outline 140ms ease;
+}
+
+.day:hover {
+    outline: 2px solid rgba(92, 106, 196, 0.25);
+}
+
+.day-number {
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.emoji-mark {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 30px;
+    gap: 8px;
+    margin-top: 12px;
+    color: var(--muted);
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: #fff;
+}
+
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    display: inline-block;
+}
+
+/* Tooltip ghi chú trong ô ngày */
+.day {
+    position: relative;
+}
+
+.note-indicator {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #7c3aed;
+    /* cùng tone với --accent */
+    opacity: 0.65;
+}
+
+.note-tooltip {
+    position: absolute;
+    left: 6px;
+    bottom: 28px;
+    /* trên chấm note-indicator */
+    max-width: 260px;
+    background: #111827;
+    /* nền đậm */
+    color: #f9fafb;
+    /* chữ sáng */
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: none;
+    /* chỉ hiện khi hover */
+    z-index: 3;
+    white-space: normal;
+}
+
+.note-tooltip::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    bottom: -6px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #111827;
+}
+
+.day:hover .note-tooltip {
+    display: block;
+}
+
+.day[style*="visibility:hidden"] .note-tooltip {
+    display: none !important;
+}
+
+/* Modal */
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: none;
+    place-items: center;
+    z-index: 50;
+}
+
+.modal {
+    width: 480px;
+    max-width: calc(100vw - 32px);
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.modal h2 {
+    margin-top: 4px;
+    font-size: 18px;
+}
+
+.moods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+}
+
+/* Hiệu ứng chọn cảm xúc trong popup */
+.mood {
+    border-radius: 12px;
+    padding: 10px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    min-height: 70px;
+    transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease, border-color 140ms ease;
+}
+
+.mood .emoji {
+    font-size: 28px;
+}
+
+/* Nổi bật khi được chọn */
+.mood.active {
+    transform: scale(1.06);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    border-color: rgba(0, 0, 0, 0.25);
+    opacity: 1;
+}
+
+/* Giảm nổi bật cho các mood không được chọn */
+.mood.dimmed {
+    opacity: 0.45;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.mood.dimmed:hover {
+    opacity: 0.7;
+    transform: scale(1.02);
+}
+
+.mood:focus-visible {
+    outline: 3px solid rgba(124, 58, 237, 0.55);
+    /* dùng tone --accent */
+}
+
+.modal textarea {
+    width: 100%;
+    min-height: 80px;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    resize: vertical;
+}
+
+.modal .actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+/* Stats */
+.stats-card {
+    margin-top: 18px;
+    background: var(--card);
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+}
+
+.stats-filters {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+canvas {
+    width: 100%;
+    max-width: 960px;
+    height: 260px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.notice {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* Ẩn nút refresh vì đã auto-update thống kê */
+#refreshStats {
+    display: none;
+}
+
+/* Hover panel (bảng liệt kê ngày/tháng theo cảm xúc khi hover cột) */
+.hover-panel {
+    position: fixed;
+    /* Đổi từ absolute sang fixed để theo màn hình */
+    width: 340px;
+    max-height: 350px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+    padding: 10px 12px;
+    display: none;
+    z-index: 20;
+    pointer-events: auto;
+    /* Cho phép scroll */
+    font-size: 13px;
+}
+
+.hover-panel h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hover-panel .badge {
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.hover-panel .month {
+    margin: 8px 0 4px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.hover-panel ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.hover-panel li {
+    margin-bottom: 4px;
+    font-size: 13px;
+    color: #1f2937;
+}
+
+.hover-panel .empty {
+    color: var(--muted);
+    font-size: 13px;
+}
