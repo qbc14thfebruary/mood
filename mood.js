@@ -8,6 +8,7 @@ const EMOTIONS = [
     { id: 'angry', label: 'Tức giận', emoji: '😡', color: '#ff9aa2' },
     { id: 'tired', label: 'Mệt mỏi', emoji: '😪', color: '#c7c7c7' },
     { id: 'grateful', label: 'Biết ơn', emoji: '🙏', color: '#d0a6ff' },
+    { id: 'zzz', label: 'None', emoji: '💤', color: '#f0eff1ff' },
 ];
 const emotionById = Object.fromEntries(EMOTIONS.map(e => [e.id, e]));
 
