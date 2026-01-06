@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nhật ký cảm xúc theo lịch</title>
+    <link rel="stylesheet" href="mood.css">
+</head>
+
+<body>
+    <header>
+        <h1>Nhật ký cảm xúc</h1>
+        <div class="filters">
+            <label>Tháng: <select id="monthSelect"></select></label>
+            <label>Năm: <select id="yearSelect"></select></label>
+            <button id="prevMonth">◀ Tháng trước</button>
+            <button id="nextMonth">Tháng sau ▶</button>
+            <button id="pickFile" class="accent">📁 Kết nối/Chọn file dữ liệu (.json)</button>
+            <span class="notice" id="fileStatus">Chưa kết nối file dữ liệu - sẽ lưu vào LocalStorage</span>
+            <!-- <span class="notice" id="fileStatus">...</span> -->
+            <br><small style="color:#666;">Lưu ý: Nếu đổi máy hoặc xóa file, dữ liệu sẽ mất. Nên backup định kỳ.</small>
+        </div>
+    </header>
+
+    <main>
+        <section class="grid" id="calendar">
+            <!-- Calendar rendered by JS -->
+        </section>
+        <div class="legend" id="legend"></div>
+
+        <section class="stats-card">
+            <div class="stats-filters">
+                <strong>Thống kê cảm xúc:</strong>
+                <label>Tháng: <select id="statsMonth"></select></label>
+                <label>Năm: <select id="statsYear"></select></label>
+                <button id="refreshStats" class="primary">Làm mới thống kê</button>
+            </div>
+            <h2 id="statsTitle" style="text-align:center; margin: 10px 0;">Thống kê</h2>
+            <canvas id="statsCanvas" width="960" height="260"></canvas>
+
+            <!-- Panel liệt kê ngày/tháng theo cảm xúc khi hover -->
+            <div id="hoverPanel" class="hover-panel" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div class="backdrop" id="backdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <h2 id="modalTitle">Ngày</h2>
+            <div class="moods" id="moodGrid"></div>
+            <textarea id="note" placeholder="Ghi chú ngắn (tùy chọn),..."></textarea>
+            <div class="actions">
+                <button id="saveBtn" class="primary">💾 Lưu</button>
+                <button id="closeBtn">Đóng</button>
+            </div>
+        </div>
+    </div>
+    <script src="mood.js"></script>
+</body>
+
+</html>
